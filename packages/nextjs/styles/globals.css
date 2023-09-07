@@ -30,3 +30,9 @@ p {
 .btn.btn-ghost {
   @apply shadow-none;
 }
+
+.main {
+  background-image: url("/assests/landing.png") !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
