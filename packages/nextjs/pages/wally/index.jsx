@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import { CustomConnect } from "../../components/scaffold-eth/";
 
 const page = () => {
   return (
@@ -23,7 +24,8 @@ const page = () => {
                 and get your wallet address linked with your mobile number. Life can be easier than you think
               </h3>
             </div>
-            <button className="btn bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg mt-6">Try it now</button>
+            <CustomConnect />
+            {/* <button className="btn bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg mt-6">Try it now</button> */}
           </div>
 
           <div className="md:col-span-4 flex flex-col">

@@ -129,10 +129,10 @@ export const Header = () => {
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
 
-      <div className="navbar-end flex-grow mr-4">
-        {/* <CustomConnect /> */}
-        {/* <FaucetButton /> */}
-      </div>
+      {/* <div className="navbar-end flex-grow mr-4">
+        <CustomConnect />
+        <FaucetButton />
+      </div> */}
 
       <div className="navbar-end flex-grow mr-4">
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{actionLinks}</ul>
