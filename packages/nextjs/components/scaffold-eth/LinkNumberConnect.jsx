@@ -29,9 +29,9 @@ const LinkNumberConnect = () => {
           : undefined;
 
         return (
-          <div className="flex justify-start items-center">
+          <div className={`flex justify-start items-center  ${!connected && "hidden"}`}>
             <button
-              className={`btn bg-gradient-to-r from-cyan-500 to-slate-500 rounded-lg ${!connected && "hidden"}`}
+              className={`btn bg-gradient-to-r from-cyan-500 to-slate-500 rounded-lg`}
               type="button"
               //   onClick={}
             >
@@ -45,3 +45,11 @@ const LinkNumberConnect = () => {
 };
 
 export default LinkNumberConnect;
+
+const TransactForm = () => {
+  return (
+    <div>
+      <h1>This is the transactions form</h1>
+    </div>
+  );
+};

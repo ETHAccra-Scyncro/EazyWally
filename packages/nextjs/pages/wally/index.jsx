@@ -18,7 +18,7 @@ const page = () => {
             <div className=" md:w-3/5 mt-10">
               <h3 className="tracking-wide leading-snug text-3xl">
                 Register with{" "}
-                <span className="bg-gradient-to-r from-[#3B3BC4] to-[#7AEBEB] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#7AEBEB] to-[#7AEBEB] bg-clip-text text-transparent">
                   EasyWally
                 </span>{" "}
                 and get your wallet address linked with your mobile number. Life can be easier than you think
