@@ -32,7 +32,7 @@ p {
 }
 
 .main {
-  background-image: url("/assests/landing.png") !important;
+  background-image: url("/assets/landing.png") !important;
   background-size: cover;
   background-repeat: no-repeat;
 }

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { CustomConnect, RainbowKitCustomConnectButton } from "./scaffold-eth";
 import LinkNumberConnect from "./scaffold-eth/LinkNumberConnect";
 import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
+import { XCircleIcon } from "@heroicons/react/24/solid";
 // import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -49,6 +50,7 @@ const TinyNavLink = ({ href, children }: { href: string; children: React.ReactNo
 export const Header = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
+
   useOutsideClick(
     burgerMenuRef,
     useCallback(() => setIsDrawerOpen(false), []),
@@ -133,7 +135,6 @@ export const Header = () => {
       <div className="navbar-end flex-grow mr-4"></div>
 
       <div className="navbar-end flex-grow mr-4">
-        <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{actionLinks}</ul>
         <LinkNumberConnect />
       </div>
     </div>
