@@ -38,9 +38,9 @@ const page = () => {
           </div>
         </div>
 
-        <div className="w-screen h-screen bg-white grid md:grid-cols-12 md:pt-20 px-20">
-          <div>Some Image here</div>
-          <div className="col-span-5">
+        {/* <div className="w-screen h-screen bg-white grid md:grid-cols-12 md:pt-20 px-20">
+          <div className="col-span-"></div>
+          {/* <div className="col-span-5">
             <form>
               <h1>let's get you connected</h1>
               <div className="form-control w-full max-w-xs ">
@@ -74,8 +74,8 @@ const page = () => {
                 />
               </div>
             </form>
-          </div>
-        </div>
+          </div> 
+        </div> */}
       </div>
     </>
   );
