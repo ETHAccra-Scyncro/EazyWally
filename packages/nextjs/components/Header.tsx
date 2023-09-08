@@ -3,7 +3,10 @@ import React, { useCallback, useRef, useState } from "react";
 // import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { CustomConnect, RainbowKitCustomConnectButton } from "./scaffold-eth";
+import LinkNumberConnect from "./scaffold-eth/LinkNumberConnect";
 import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
+import { XCircleIcon } from "@heroicons/react/24/solid";
 // import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -47,18 +50,6 @@ const TinyNavLink = ({ href, children }: { href: string; children: React.ReactNo
 export const Header = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
-
-  const [showModal, setShowModal] = useState(false);
-  const [phone, setPhone] = useState('')
-
-  const handleSubmit = async(e : any) => {
-    e.preventDefault()
-    try{
-      setShowModal(false)
-    }catch(err){
-      console.log(err)
-    }
-  }
 
   useOutsideClick(
     burgerMenuRef,
@@ -140,67 +131,6 @@ export const Header = () => {
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
-
-      {/* <div className="navbar-end flex-grow mr-4">
-        <RainbowKitCustomConnectButton />
-        <FaucetButton />
-      </div> */}
-
-      <div className="navbar-end flex-grow mr-4">
-        <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{actionLinks}</ul>
-        <button className="btn bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg" onClick={() => setShowModal(true)}>Get Started</button>
-      </div>
-
-      {showModal && (
-      <>
-      <div
-        className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-      >
-        <div className="relative w-auto my-6 mx-auto max-w-3xl">
-          {/*content*/}
-          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-            {/*header*/}
-            <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              <h3 className="text-3xl font-semibold">
-                Enter your Phone Number
-              </h3>
-              <button
-                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                onClick={() => setShowModal(false)}
-              >
-                <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                  ×
-                </span>
-              </button>
-            </div>
-            {/*body*/}
-            <div className="relative p-6 flex-auto flex flex-col g-3">
-              <label>Phone Number</label>
-              <input type="text" placeholder="Enter your Phone Number" className="p-2 rounded border" value={phone} onChange={(e) => setPhone(e.target.value)} />
-            </div>
-            {/*footer*/}
-            <div className="flex items-center justify-end p-2 border-t border-solid border-slate-200 rounded-b">
-              <button
-                className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                onClick={() => setShowModal(false)}
-              >
-                Close
-              </button>
-              <button
-                className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                onClick={handleSubmit}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-    </>
-  )}
 
     </div>
   );
