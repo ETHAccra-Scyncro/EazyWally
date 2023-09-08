@@ -86,7 +86,7 @@ export const CustomConnect = () => {
               // }
 
               return (
-                <div className="flex justify-end items-center">
+                <div className="flex justify-start items-center">
                   {/* <div className="flex flex-col items-center mr-1">
                     <span className="text-xs" style={{ color: networkColor }}>
                       {chain.name}
