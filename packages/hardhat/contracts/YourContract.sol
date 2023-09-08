@@ -1,40 +1,23 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.0;
 
-contract PhoneNumber {
-    struct User {
+contract UserRegistry {
+    struct UserData {
         address walletAddress;
         string phoneNumber;
-        bool isRegistered;
     }
 
-    mapping(address => User) public users;
-    address public owner;
+    mapping(address => UserData) public userData;
 
-    constructor() {
-        owner = msg.sender;
-    }
+    event UserRegistered(address indexed walletAddress, string phoneNumber);
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, 'Caller is not the owner of the contract');
-        _;
-    }
+    function registerUser(string memory _phoneNumber) public {
+        require(bytes(_phoneNumber).length > 0, "Phone number must not be empty");
+        require(userData[msg.sender].walletAddress == address(0), "User already registered");
 
-    function registerPhoneNumber(string memory _phoneNumber) external {
-        require(!users[msg.sender].isRegistered, 'User is already registered');
+        UserData storage user = userData[msg.sender];
+        user.walletAddress = msg.sender;
+        user.phoneNumber = _phoneNumber;
 
-        // You may add phone number format validation here.
-
-        users[msg.sender] = User({
-            walletAddress: msg.sender,
-            phoneNumber: _phoneNumber,
-            isRegistered: true
-        });
-    }
-
-    function unregisterPhoneNumber() external onlyOwner {
-        require(users[msg.sender].isRegistered, 'User is not registered');
-
-        delete users[msg.sender];
+        emit UserRegistered(msg.sender, _phoneNumber);
     }
 }
