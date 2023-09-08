@@ -2,6 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { CustomConnect } from "../../components/scaffold-eth/";
 
+
+
 const page = () => {
   return (
     <>
