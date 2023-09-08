@@ -85,13 +85,13 @@ export const Header = () => {
   const actionLinks = (
     <>
       <li>
-        <TinyNavLink href="#about">
+        <TinyNavLink href="/about">
           <BugAntIcon className="h-4 w-4" />
           About Project
         </TinyNavLink>
       </li>
       <li>
-        <TinyNavLink href="#about">
+        <TinyNavLink href="/about">
           <BugAntIcon className="h-4 w-4" />
           Request Demo
         </TinyNavLink>
@@ -131,9 +131,6 @@ export const Header = () => {
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">{navLinks}</ul>
       </div>
-
-      <div className="navbar-end flex-grow mr-4"></div>
-
       <div className="navbar-end flex-grow mr-4">
         <LinkNumberConnect />
       </div>
