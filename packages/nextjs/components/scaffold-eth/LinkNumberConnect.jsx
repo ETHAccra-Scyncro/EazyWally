@@ -13,7 +13,7 @@ import {
   XCircleIcon,
 } from "@heroicons/react/24/outline";
 import { Address, Balance, BlockieAvatar, CustomFillButton } from "~~/components/scaffold-eth";
-import { useAutoConnect, useNetworkColor } from "~~/hooks/scaffold-eth";
+import { useAutoConnect, useNetworkColor, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { getBlockExplorerAddressLink, getTargetNetwork } from "~~/utils/scaffold-eth";
 
 const LinkNumberConnect = () => {
@@ -26,6 +26,22 @@ const LinkNumberConnect = () => {
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [hasSet, setHasSet] = useState(false);
+
+  // interact with contract
+  const { writeAsync, isLoading, isMining } = useScaffoldContractWrite({
+    contractName: "YourContract",
+    functionName: "setGreeting",
+    args: ["The value to set"],
+    // For payable functions, expressed in ETH
+    value: "0.01",
+    // The number of block confirmations to wait for before considering transaction to be confirmed (default : 1).
+    blockConfirmations: 1,
+    // The callback function to execute when the transaction is confirmed.
+    onBlockConfirmation: txnReceipt => {
+      console.log("Transaction blockHash", txnReceipt.blockHash);
+    },
+  });
+
   const handleSubmit = async e => {
     e.preventDefault();
     console.log(phone, wallet);
@@ -39,6 +55,7 @@ const LinkNumberConnect = () => {
       setTimeout(() => {
         setSubmitting(false);
         setShowModal(false);
+        writeAsync();
         toast.success(`Address linked to ${phone}`);
         handleModalClose();
       }, 2000);
@@ -68,6 +85,7 @@ const LinkNumberConnect = () => {
       toast.success("address set");
     }, 2000);
   };
+
   return (
     <ConnectButton.Custom>
       {({ account, chain, openConnectModal, mounted }) => {
