@@ -1,4 +1,5 @@
 import { useState } from "react";
+import LinkNumberConnect from "./LinkNumberConnect";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { QRCodeSVG } from "qrcode.react";
 import CopyToClipboard from "react-copy-to-clipboard";
@@ -181,6 +182,7 @@ export const RainbowKitCustomConnectButton = () => {
                       </label>
                     </label>
                   </div>
+                  <LinkNumberConnect />
                 </div>
               );
             })()}

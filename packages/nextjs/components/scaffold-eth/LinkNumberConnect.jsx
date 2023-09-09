@@ -3,8 +3,10 @@ import { useState } from "react";
 import { Spinner } from "../Spinner";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { LoaderIcon, toast } from "react-hot-toast";
+import { useSwitchNetwork } from "wagmi";
 import {
   ArrowLeftOnRectangleIcon,
+  ArrowSmallRightIcon,
   ArrowTopRightOnSquareIcon,
   ArrowsRightLeftIcon,
   CheckCircleIcon,
@@ -26,15 +28,15 @@ const LinkNumberConnect = () => {
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [hasSet, setHasSet] = useState(false);
-
+  const [showTransac, setShowTransac] = useState(false);
   // interact with contract
   const { writeAsync, isLoading, isMining } = useScaffoldContractWrite({
-    contractName: "YourContract",
-    functionName: "setGreeting",
-    args: ["The value to set"],
-    // For payable functions, expressed in ETH
-    value: "0.01",
-    // The number of block confirmations to wait for before considering transaction to be confirmed (default : 1).
+    contractName: "UserRegistry",
+    functionName: "registerUser",
+    args: [phone],
+
+    // value: "0.01",
+
     blockConfirmations: 1,
     // The callback function to execute when the transaction is confirmed.
     onBlockConfirmation: txnReceipt => {
@@ -86,6 +88,11 @@ const LinkNumberConnect = () => {
     }, 2000);
   };
 
+  const transacModalhandler = () => {
+    setShowTransac(true);
+  };
+  const configuredNetwork = getTargetNetwork();
+  const { switchNetwork } = useSwitchNetwork();
   return (
     <ConnectButton.Custom>
       {({ account, chain, openConnectModal, mounted }) => {
@@ -94,14 +101,58 @@ const LinkNumberConnect = () => {
           ? getBlockExplorerAddressLink(getTargetNetwork(), account.address)
           : undefined;
 
+        // if (chain.unsupported || chain.id !== configuredNetwork.id) {
+        //   return (
+        //     <div className="dropdown dropdown-end">
+        //       <label tabIndex={0} className="btn btn-error btn-sm dropdown-toggle gap-1">
+        //         <span>Wrong network</span>
+        //         <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0" />
+        //       </label>
+        //       <ul
+        //         tabIndex={0}
+        //         className="dropdown-content menu p-2 mt-1 shadow-center shadow-accent bg-base-200 rounded-box gap-1"
+        //       >
+        //         <li>
+        //           <button
+        //             className="btn-sm !rounded-xl flex py-3 gap-3"
+        //             type="button"
+        //             onClick={() => switchNetwork?.(configuredNetwork.id)}
+        //           >
+        //             <ArrowsRightLeftIcon className="h-6 w-4 ml-2 sm:ml-0" />
+        //             <span className="whitespace-nowrap">
+        //               Switch to <span style={{ color: networkColor }}>{configuredNetwork.name}</span>
+        //             </span>
+        //           </button>
+        //         </li>
+        //         <li>
+        //           <button
+        //             className="menu-item text-error btn-sm !rounded-xl flex gap-3 py-3"
+        //             type="button"
+        //             onClick={() => disconnect()}
+        //           >
+        //             <ArrowLeftOnRectangleIcon className="h-6 w-4 ml-2 sm:ml-0" /> <span>Disconnect</span>
+        //           </button>
+        //         </li>
+        //       </ul>
+        //     </div>
+        //   );
+        // }
         return (
-          <div className="flex justify-start items-center">
+          <div className="flex justify-start items-center gap-5">
             <button
               className={`btn bg-gradient-to-r from-cyan-500 to-slate-500 rounded-lg ${!connected && "hidden"}`}
               type="button"
               onClick={() => showHandler()}
             >
               <LinkIcon className="h-6 w-4 ml-2 sm:ml-0 " /> <span>Link Number</span>
+            </button>
+
+            <button
+              className={`btn bg-gradient-to-r from-cyan-500 to-slate-500 rounded-lg ${!connected && "hidden"}`}
+              type="button"
+              onClick={() => transacModalhandler()}
+            >
+              <ArrowsRightLeftIcon className="h-6 w-4 ml-2 sm:ml-0 " /> <span>Make Transaction</span>
             </button>
 
             {showModal && (
@@ -176,6 +227,45 @@ const LinkNumberConnect = () => {
                   </div>
                 </div>
               </>
+            )}
+
+            {showTransac && (
+              <div className=" overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black bg-opacity-60">
+                <div className="relative my-6 mx-auto w-3/4 md:w-2/4 lg:w-1/4  bg-white h-[500px] float-right mr-7 mt-20">
+                  <div className="flex justify-between">
+                    <div className="px-5 mt-5">
+                      <h1 className="text-3xl font-medium text-gray-700 my-0">EazyWally</h1>
+                      <h3 className="text-sm font-light text-gray-600 my-0">simulaate transaction</h3>
+                    </div>
+                    <div>
+                      <button className="outline-none focus:outline-none" onClick={() => setShowTransac(false)}>
+                        <XCircleIcon className="w-10 h-10 fill-red-600" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="w-full px-5 ">
+                    <div className="flex flex-col gap-2 mt-5">
+                      <label className="text-base font-medium text-gray-700 ">Phone number</label>
+                      <input
+                        type="text"
+                        placeholder="(+233) 50 00000000"
+                        className="input px-2 rounded-lg w-full bg-white border-2 border-gray-300 text-gray-700 "
+                      />
+                    </div>
+                    <div className="w-full flex justify-end">
+                      <button className="btn rounded mt-5">Transact</button>
+                    </div>
+
+                    <div className="w-full ">
+                      <h1 className="text-sm font-medium text-gray-600">Addresses found:</h1>
+                      <span className="text-gray-400 w-full flex flex-col bg-gray-100 rounded shadow px-2 py-1">
+                        <span>{chain.name}</span>
+                        <Address address={account.address} format="short" disableAddressLink={true} />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         );
