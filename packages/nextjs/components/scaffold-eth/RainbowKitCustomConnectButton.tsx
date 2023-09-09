@@ -182,7 +182,9 @@ export const RainbowKitCustomConnectButton = () => {
                       </label>
                     </label>
                   </div>
-                  <LinkNumberConnect />
+                  <div className="ml-5">
+                    <LinkNumberConnect />
+                  </div>
                 </div>
               );
             })()}
