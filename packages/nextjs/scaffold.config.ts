@@ -8,10 +8,10 @@ export const base = {
   nativeCurrency: { name: "Base", symbol: "ETH", decimals: 18 },
   rpcUrls: {
     default: {
-      http: ["https://mainnet.base.org", "https://goerli.base.org"],
+      http: ["https://mainnet.base.org", "https://goerli.base.org", "https://rpc.goerli.linea.build"],
     },
     public: {
-      http: ["https://mainnet.base.org", "https://goerli.base.org"],
+      http: ["https://mainnet.base.org", "https://goerli.base.org", "https://rpc.goerli.linea.build"],
     },
   },
   blockExplorers: {
@@ -26,6 +26,10 @@ export const base = {
     etherscan: {
       name: "Basescan",
       url: "https://basescan.org",
+    },
+    linea: {
+      name: "Linea",
+      url: "https://explorer.goerli.linea.build/",
     },
   },
   contracts: {
@@ -50,7 +54,7 @@ const scaffoldConfig = {
   // targetNetwork: base,
   // for base goerli testnet :
   // targetNetwork: chains.baseGoerli,
-  targetNetwork: chains.goerli,
+  targetNetwork: chains.linea,
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect on the local network
